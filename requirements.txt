@@ -1,0 +1,8 @@
+# Requisitos de Ambiente para Desenvolvimento
+
+Flutter SDK >= 3.12.2
+Dart SDK >= 3.12.2
+SQLite 3 (nativo ou via sqflite_ffi)
+Android SDK (para build android)
+iOS SDK / Xcode (para build ios)
+Lcov (opcional, para relatórios de cobertura)

@@ -29,9 +29,14 @@ class DatabaseService {
   // Getter for the connection as referred in pseudocode
   Database get conexaoBanco => _database!;
 
-  Future<Database> _initDatabase() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final path = join(directory.path, EnvConfig.dbName);
+  Future<Database> _initDatabase({String? testPath}) async {
+    String path;
+    if (testPath != null) {
+      path = testPath;
+    } else {
+      final directory = await getApplicationDocumentsDirectory();
+      path = join(directory.path, EnvConfig.dbName);
+    }
     
     return await openDatabase(
       path,
@@ -42,8 +47,9 @@ class DatabaseService {
   }
 
   // For compatibility with pseudocode call "inicializarBanco"
-  Future<void> inicializarBanco() async {
-    await database;
+  Future<void> inicializarBanco({String? testPath}) async {
+    if (_database != null) await _database!.close();
+    _database = await _initDatabase(testPath: testPath);
   }
 
   Future<void> _executarEsquemaInicial(Database db, int version) async {

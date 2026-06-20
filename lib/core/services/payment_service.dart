@@ -5,8 +5,11 @@ import '../../app/config/env_config.dart';
 
 class PaymentService {
   final DatabaseService dbService;
+  final http.Client _client;
 
-  PaymentService() : dbService = DatabaseService.obterInstancia();
+  PaymentService({http.Client? client})
+      : dbService = DatabaseService.obterInstancia(),
+        _client = client ?? http.Client();
 
   Future<bool> processarPagamentoApp(String pedidoId, String tokenCartao) async {
     final chaveGateway = EnvConfig.paymentGatewayKey;
@@ -25,7 +28,7 @@ class PaymentService {
 
     final valorTransacao = dadosPedido.first["valor"];
     
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse("https://api.gateway.com/v1/charge"),
       headers: {"Authorization": chaveGateway, "Content-Type": "application/json"},
       body: jsonEncode({

@@ -8,8 +8,10 @@ class EnvConfig {
   static late String paymentGatewayKey;
   static late String pushProviderConfig;
 
-  static Future<void> initialize() async {
-    await dotenv.load(fileName: ".env");
+  static Future<void> initialize({bool isTest = false}) async {
+    if (!isTest) {
+      await dotenv.load(fileName: ".env");
+    }
 
     appEnv = dotenv.get('APP_ENV', fallback: 'development');
     dbName = dotenv.get('DB_NAME', fallback: 'artesanal.db');

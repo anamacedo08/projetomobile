@@ -1,17 +1,50 @@
-# projetomobile
+# Aplicativo de Encomendas Artesanais
 
-A new Flutter project.
+Este projeto é um aplicativo mobile desenvolvido com Flutter, seguindo os princípios de **Clean Architecture** e uma abordagem **Local-First** com SQLite.
 
-## Getting Started
+## Arquitetura e Tecnologias
 
-This project is a starting point for a Flutter application.
+- **Flutter**: Framework UI.
+- **SQLite (sqflite)**: Persistência local de dados.
+- **Clean Architecture**: Separação de preocupações em camadas (Data, Domain, App).
+- **TDD (Test-Driven Development)**: Garantia de qualidade e regressão.
+- **Dotenv**: Gerenciamento de variáveis de ambiente.
 
-A few resources to get you started if this is your first Flutter project:
+## Estrutura do Projeto
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- `lib/app/config`: Configurações globais e variáveis de ambiente.
+- `lib/core/database`: Serviço de banco de dados e migrações.
+- `lib/core/services`: Serviços de negócio (Autenticação, Pedidos, Pagamentos).
+- `lib/features`: Funcionalidades do sistema organizadas por domínio.
+- `test`: Testes unitários e de integração.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Como Executar
+
+1.  Certifique-se de ter o Flutter instalado.
+2.  Instale as dependências:
+    ```bash
+    flutter pub get
+    ```
+3.  Configure o arquivo `.env` na raiz (baseado no `03-especs.md`).
+4.  Execute o aplicativo:
+    ```bash
+    flutter run
+    ```
+
+## Executando Testes
+
+Para rodar todos os testes automatizados:
+```bash
+flutter test
+```
+
+Para gerar mocks:
+```bash
+dart run build_runner build
+```
+
+## Documentação
+
+Os documentos detalhados de especificação e testes encontram-se na pasta `doc/`:
+- `doc/03-especs.md`: Especificações técnicas.
+- `doc/testing.md`: Plano de testes e cenários.
