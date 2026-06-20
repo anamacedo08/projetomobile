@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'app/config/env_config.dart';
+import 'core/database/database_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Inicializa configurações de ambiente
+  await EnvConfig.initialize();
+  
+  // Inicializa o banco de dados
+  await DatabaseService.instance.inicializarBanco();
+
   runApp(const MyApp());
 }
 
