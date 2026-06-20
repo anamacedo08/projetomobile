@@ -22,7 +22,7 @@ void main() {
 
   test('CT06 - Login Válido e CT07 - Login Inválido', () async {
     // Admin is injected by default
-    final success = await authService.autenticar('admin@artesanal.com', 'AdminArtesanal2026!');
+    final success = await authService.autenticar('admin@artesanal.com', '1234');
     expect(success, isTrue);
     expect(authService.usuarioLogado, isNotNull);
     expect(authService.usuarioLogado!.perfil, 'ADMINISTRADOR');
@@ -52,5 +52,13 @@ void main() {
       () => authService.cadastrarAtendente('Another', 'another@test.com', 'pass'),
       throwsException
     );
+  });
+
+  test('CT20 - Logout', () async {
+    await authService.autenticar('admin@artesanal.com', 'AdminArtesanal2026!');
+    expect(authService.usuarioLogado, isNotNull);
+
+    authService.logout();
+    expect(authService.usuarioLogado, isNull);
   });
 }

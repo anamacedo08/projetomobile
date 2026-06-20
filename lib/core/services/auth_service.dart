@@ -5,10 +5,12 @@ import '../database/database_service.dart';
 import '../models/usuario.dart';
 
 class AuthService {
+  static final AuthService _instance = AuthService._internal();
+  factory AuthService() => _instance;
+  AuthService._internal() : dbService = DatabaseService.obterInstancia();
+
   final DatabaseService dbService;
   Usuario? usuarioLogado;
-
-  AuthService() : dbService = DatabaseService.obterInstancia();
 
   Future<bool> autenticar(String email, String senhaPura) async {
     final bytes = utf8.encode(senhaPura);
@@ -26,6 +28,10 @@ class AuthService {
       return true;
     }
     return false;
+  }
+
+  void logout() {
+    usuarioLogado = null;
   }
 
   Future<void> cadastrarAtendente(String nome, String email, String senhaPura) async {
